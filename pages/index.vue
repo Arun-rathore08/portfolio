@@ -385,6 +385,9 @@
       </section>
     </div>
   </div>
+    <footer>
+      <p>© 2024 Arun Rathore. All rights reserved.</p>
+    </footer>
   </div>
 </template>
 
