@@ -71,7 +71,7 @@
       
       <!-- Experience Section -->
       <section class="text-center py-5">
-        <div class="flex justify-center space-x-10 text-2xl">
+        <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 md:spacs-x-10 text-2xl">
           <div>
             <p class="font-bold text-white">0</p>
             <p class="text-gray-500">Years of experience</p>
