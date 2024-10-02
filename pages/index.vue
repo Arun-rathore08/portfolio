@@ -1,43 +1,53 @@
 <template>
-  <div class="min-h-screen bg-black text-white font-sans">
+  <div ref="home" class="min-h-screen bg-black text-white font-sans" id="home">
     <div class="container mx-auto py-10 px-5 md:px-20">
-  <!-- Navbar -->
-    <nav :class="['fixed top-0 left-0 w-full bg-black text-white py-5 px-10 z-20 transition-all duration-300 flex justify-between items-center', navVisible ? 'opacity-100' : 'opacity-0 pointer-events-none']">
-      <nuxt-link to="/">
-        <img src="/logo.png" style="width: 75px;" alt="Logo">
-      </nuxt-link>
-      <!-- Sidebar Toggle Button for Mobile -->
-      <button class="text-white md:hidden" @click="toggleSidebar">
-        <!-- Toggle Menu Icon -->
-        <svg v-if="!sidebarVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-        <!-- Close Icon -->
-        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      <!-- Navbar Links for Desktop -->
-      <ul class="hidden md:flex justify-end space-x-8 pt-2 text-lg">
-        <li><NuxtLink to="/" class="hover:text-blue-400">Home</NuxtLink></li>
-        <li><NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink></li>
-        <li><NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink></li>
-        <li><NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink></li>
-        <li><NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink></li>
-      </ul>
-    </nav>
+      <!-- Navbar -->
+<!-- Navbar -->
+        <nav :class="['fixed top-0 left-0 w-full bg-black text-white py-5 px-10 z-20 transition-all duration-300 flex justify-between items-center', navVisible || !isDesktop ? 'opacity-100' : 'opacity-0 pointer-events-none']">
+          <nuxt-link to="/">
+            <img src="/logo.png" style="width: 75px;" alt="Logo">
+          </nuxt-link>
+          <!-- Sidebar Toggle Button for Mobile (Always visible) -->
+          <button class="text-white md:hidden" @click="toggleSidebar">
+            <!-- Toggle Menu Icon -->
+            <svg v-if="!sidebarVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+            <!-- Close Icon -->
+            <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <!-- Navbar Links for Desktop -->
+          <ul class="hidden md:flex justify-end space-x-8 pt-2 text-lg">
+            <li><NuxtLink to="/" class="hover:text-blue-400" @click="scrollToTop">Home</NuxtLink></li>
+            <li><NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink></li>
+            <li><NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink></li>
+            <li><NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink></li>
+            <li><NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink></li>
+          </ul>
+        </nav>
 
-    <!-- Sidebar for Mobile -->
-    <div :class="['fixed top-20 left-0 h-full w-42 bg-black z-30 transition-transform duration-300', sidebarVisible ? 'translate-x-0' : '-translate-x-full']">
-      
-      
-      <nav class="flex flex-col items-center space-y-6 mt-10 text-lg text-white">
-        <NuxtLink to="/" class="hover:text-blue-400" @click="toggleSidebar">Home</NuxtLink>
-        <NuxtLink to="/#about" class="hover:text-blue-400" @click="toggleSidebar">About</NuxtLink>
-        <NuxtLink to="/#work" class="hover:text-blue-400" @click="toggleSidebar">Work</NuxtLink>
-        <NuxtLink to="/#service" class="hover:text-blue-400" @click="toggleSidebar">Services</NuxtLink>
-        <NuxtLink to="/#contact" class="hover:text-blue-400" @click="toggleSidebar">Contact</NuxtLink>
-      </nav>
+
+      <!-- Sidebar for Mobile -->
+      <div :class="['fixed top-20 left-0 h-full w-42 bg-black z-30 transition-transform duration-300', sidebarVisible ? 'translate-x-0' : '-translate-x-full']">
+        <nav class="flex flex-col items-center space-y-6 mt-10 text-lg text-white">
+          <li :class="{ active: currentSection === 'home' }">
+            <NuxtLink to="/#home" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('home')">Home</NuxtLink>
+          </li>
+          <li :class="{ active: currentSection === 'about' }">
+            <NuxtLink to="/#about" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('about')">About</NuxtLink>
+          </li>
+          <li :class="{ active: currentSection === 'work' }">
+            <NuxtLink to="/#work" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('work')">Work</NuxtLink>
+          </li>
+          <li :class="{ active: currentSection === 'service' }">
+            <NuxtLink to="/#service" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('service')">Services</NuxtLink>
+          </li>
+          <li :class="{ active: currentSection === 'contact' }">
+            <NuxtLink to="/#contact" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('contact')">Contact</NuxtLink>
+          </li>
+        </nav>
   </div>
 
 
@@ -56,14 +66,14 @@
             <p class="text-gray-400 mt-4">
               I excel at crafting elegant digital experiences and am proficient in various programming languages and technologies.
             </p>
-            <div class="mt-8 flex items-center space-x-4">
+            <div class="mt-8 flex items-center space-x-4 md:mb-0 mb-12">
               <a href="/Resume.pdf" download class="bg-green-400 text-black px-6 py-3 rounded-full">
                 Download CV
               </a>
             </div>
           </div>
           <!-- Image Section -->
-          <div class="relative flex justify-center items-center md:w-1/2">
+          <div class="relative flex justify-center items-center md:w-1/2 mt-8 md:mt-0">
             <img src="/ar.jpg" alt="Profile" class="w-64 h-64 rounded-full object-cover z-10" />
             <div class="absolute inset-0 flex justify-center items-center">
               <div v-for="n in 12" :key="n" :style="{ transform: `rotate(${n * 30}deg)` }" class="absolute">
@@ -98,7 +108,7 @@
       
     </div><hr /><br />
       <!-- Add your content here -->
-       <section id="about">
+       <section ref="about"id="about">
          <h2>About Me</h2>
             <p class="p">
               Hi, I'm Arun Rathore, currently pursuing M.Tech in Computer Science. I have completed my B.Tech with a CGPA of 8.25. My passion lies in web development and learning new technologies to grow alongside others.
@@ -162,7 +172,7 @@
           </section>
           <br /><hr /><br />
           <!--mywork-->
-          <section id="work">
+          <section ref="work"id="work">
             <section class="portfolio-gallery flex flex-wrap justify-center gap-6">
               <h3 class="w-full text-center font-bold text-lg md:text-xl lg:text-2xl mb-6">My Work</h3>
               <div class="gallery grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -206,7 +216,7 @@
             </section>
           </section>
           <br /><hr />
-          <section id="service">
+          <section ref="service" id="service">
             <h1>Services I Offer</h1>
             <div class="services-grid">
               <!-- Service 1: Full-stack Development -->
@@ -351,7 +361,7 @@
        </section>
        <br /><hr /><br />
        <!--contact-->
-       <section id="contact">
+       <section ref="contact" id="contact">
         <div class="contact-container mx-auto max-w-2xl p-6 bg-gray-800 rounded-lg shadow-lg">
           <h1 class="text-2xl font-bold text-center text-teal-400 mb-6">Contact Me</h1>
           <form @submit.prevent="submitForm" class="contact-form space-y-4">
@@ -411,17 +421,39 @@ export default {
       },
       formSubmitted: false,
       sidebarVisible: false,
+      currentSection: 'home',
+      experienceCount: 0,
+      projectsCount: 0,
+      technologiesCount: 0,
+      commitsCount: 0,
+      isDesktop: false,
+      navVisible: true, // To control navbar visibility
     };
   },
   mounted() {
+    this.handleResize();
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.checkScreenSize);
+    window.addEventListener('resize', this.handleResize); 
+    this.startCounting(); // Trigger counter when the page is loaded
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize); 
   },
   methods: {
+    checkScreenSize() {
+      this.isMobile = window.innerWidth < 768;
+    },
     toggleSidebar() {
       this.sidebarVisible = !this.sidebarVisible;
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     },
     async submitForm() {
       try {
@@ -434,23 +466,63 @@ export default {
     },
     handleScroll() {
       this.navVisible = window.scrollY <= 100;
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
-        this.sidebarVisible = true;
-      } else {
-        this.sidebarVisible = false;
+      const sections = ['home', 'about', 'work', 'service', 'contact'];
+      let foundSection = '';
+      const scrollPosition =  window.scrollY;
+      
+      //handle navbar visibility
+      this.navVisible = scrollPosition <= 100;
+
+      if(this.isDesktop){
+        this.navVisible = window.scrollY <= 100;
+      }
+
+      //show the sidebar based on scroll only when if it's not mobile
+      if(!this.isMobile){
+        if(scrollPosition>100){
+          if(window.innerWidth >= 768){
+
+            this.sidebarVisible = true;
+          }
+        } else{
+          if (window.innerWidth >= 768){
+
+            this.sidebarVisible = false;
+          }
+        }
+      }
+
+      sections.forEach((section) => {
+        const sectionElement = this.$refs[section];
+        if (sectionElement) {
+          const rect = sectionElement.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+            foundSection = section;
+          }
+        }
+      });
+
+      if (foundSection) {
+        this.currentSection = foundSection;
+      }
+    },
+    handleResize(){
+      this.isDesktop = window.innerWidth >= 768;
+    },
+    scrollToSection(section) {
+      const sectionElement = this.$refs[section];
+      if (sectionElement) {
+        window.scrollTo({
+          top: sectionElement.offsetTop - 80, // Adjust for navbar height
+          behavior: 'smooth',
+        });
       }
     },
     startCounting() {
-      const targetExperience = 0;
-      const targetProjects = 15;
-      const targetTechnologies = 6;
-      const targetCommits = 100;
-
-      this.incrementCounter('experienceCount', targetExperience, 100);
-      this.incrementCounter('projectsCount', targetProjects, 100);
-      this.incrementCounter('technologiesCount', targetTechnologies, 100);
-      this.incrementCounter('commitsCount', targetCommits, 100);
+      this.incrementCounter('experienceCount', 0, 0);
+      this.incrementCounter('projectsCount', 15, 1000);
+      this.incrementCounter('technologiesCount', 6, 1000);
+      this.incrementCounter('commitsCount', 100, 1000);
     },
     incrementCounter(counterName, target, duration) {
       let count = 0;
@@ -466,6 +538,7 @@ export default {
     },
   },
 };
+
 </script>
 
 
