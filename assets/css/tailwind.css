@@ -8,6 +8,12 @@ html {
 nav{
   transition: opacity 0.3s ease-in-out;
 }
+.cont {
+  transition: margin-left 0.3s ease;
+}
+.sidebar {
+  transition: width 0.3s ease, transform 0.3s ease;
+}
 
 .image-container {
     position: relative;
@@ -17,32 +23,21 @@ nav{
     overflow: hidden;
 }
 
-.ar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+.curve {
+  stroke: #00bfa6; /* Color of the dashed line */
+  stroke-width: 4; /* Thickness of the line */
+  fill: none; /* Keep the fill empty to just show the lines */
+  stroke-dasharray: 15; /* Length of the dashes */
+  stroke-dashoffset: 0; /* Start without offset */
 }
 
-.circle-anim {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 4px dashed #00bfa6;
-    animation: rotate 5s linear infinite;
+/* Animate the orbits */
+.orbit {
+  animation: orbit 10s linear infinite; /* Rotate animation */
 }
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-/* Animation for the circle dots */
-@keyframes spin {
+
+/* Keyframes for orbiting effect */
+@keyframes orbit {
   0% {
     transform: rotate(0deg);
   }
@@ -51,15 +46,14 @@ nav{
   }
 }
 
-.circular-anim {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border: 2px solid rgba(0, 191, 166, 0.5); /* Custom green color */
-  border-radius: 50%;
-  animation: spin 3s linear infinite;
+/* Position lines in a circle */
+.outer-orbit {
+  transform-origin: 200px 200px; /* Center of the circle */
 }
 
+.inner-orbit {
+  transform-origin: 200px 200px; /* Center of the circle */
+}
   .introduction {
     text-align: center;
     margin: 20px;
@@ -296,11 +290,7 @@ nav{
     border-radius: 8px;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
   }
-  
-  .main-content {
-    margin-left: 80px; /* This should match or exceed the sidebar width */
-    padding: 20px;
-  }
+
   
   @media screen and (max-width: 700px) {
     .sidebar {
