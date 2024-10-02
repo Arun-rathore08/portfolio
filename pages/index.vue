@@ -1,96 +1,102 @@
 <template>
   <div class="min-h-screen bg-black text-white font-sans">
     <div class="container mx-auto py-10 px-5 md:px-20">
-      <!-- Logo -->
-      
-      <!-- Navigation -->
-      <div :class="['fixed top-0 left-0 h-full w-54 bg-black transition-transform duration-300', sidebarVisible ? 'translate-x-0' : '-translate-x-full']">
-        
-          <nuxt-link to="/"><img src="/logo.png" style="width: 75px; margin: 2px;" alt=""></nuxt-link>
-        
-        <nav class="flex flex-col items-center space-y-6 mt-10 text-white" style="font-size: large;">
-          <NuxtLink to="/" class="hover:text-blue-400">Home</NuxtLink>
-          <NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink>
-          <NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink>
-          <NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink>
-          <NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink>
-        </nav>
-    </div>
-
-    <!-- Normal Navbar -->
-    <nav class="fixed top-0 left-0 w-full bg-black text-white py-5 px-10 z-20 transition-all duration-300" :class="{'hidden': sidebarVisible}">
-      <div style="display: flex; justify-content: space-around;">
-        <nuxt-link to="/"><img src="/logo.png" style="width: 75px;" alt=""></nuxt-link>
-        <ul class="flex justify-end space-x-8 pt-2" style="font-size: large;">
-          <li><NuxtLink to="/" class="hover:text-blue-400">Home</NuxtLink></li>
-          <li><NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink></li>
-          <li><NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink></li>
-          <li><NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink></li>
-          <li><NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink></li>
-        </ul>
-      </div>
+  <!-- Navbar -->
+    <nav :class="['fixed top-0 left-0 w-full bg-black text-white py-5 px-10 z-20 transition-all duration-300 flex justify-between items-center', navVisible ? 'opacity-100' : 'opacity-0 pointer-events-none']">
+      <nuxt-link to="/">
+        <img src="/logo.png" style="width: 75px;" alt="Logo">
+      </nuxt-link>
+      <!-- Sidebar Toggle Button for Mobile -->
+      <button class="text-white md:hidden" @click="toggleSidebar">
+        <!-- Toggle Menu Icon -->
+        <svg v-if="!sidebarVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+        <!-- Close Icon -->
+        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <!-- Navbar Links for Desktop -->
+      <ul class="hidden md:flex justify-end space-x-8 pt-2 text-lg">
+        <li><NuxtLink to="/" class="hover:text-blue-400">Home</NuxtLink></li>
+        <li><NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink></li>
+        <li><NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink></li>
+        <li><NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink></li>
+        <li><NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink></li>
+      </ul>
     </nav>
-      <div class="cont" style="margin-left: 30px;">
 
+    <!-- Sidebar for Mobile -->
+    <div :class="['fixed top-20 left-0 h-full w-42 bg-black z-30 transition-transform duration-300', sidebarVisible ? 'translate-x-0' : '-translate-x-full']">
+      
+      
+      <nav class="flex flex-col items-center space-y-6 mt-10 text-lg text-white">
+        <NuxtLink to="/" class="hover:text-blue-400" @click="toggleSidebar">Home</NuxtLink>
+        <NuxtLink to="/#about" class="hover:text-blue-400" @click="toggleSidebar">About</NuxtLink>
+        <NuxtLink to="/#work" class="hover:text-blue-400" @click="toggleSidebar">Work</NuxtLink>
+        <NuxtLink to="/#service" class="hover:text-blue-400" @click="toggleSidebar">Services</NuxtLink>
+        <NuxtLink to="/#contact" class="hover:text-blue-400" @click="toggleSidebar">Contact</NuxtLink>
+      </nav>
+  </div>
+
+
+
+      <!-- Content Section -->
+      <div class="cont mt-20 ml-20">
         <!-- Hero Section -->
         <section class="flex flex-col md:flex-row items-center justify-between py-20">
           <!-- Text Section -->
           <div class="md:w-1/2">
-          <h2 class="text-gray-500 text-xl">Software Developer</h2>
-          <h1 class="text-6xl font-extrabold">
-            Hello I'm <br />
-            <span class="text-green-400">Arun Rathore</span>
-          </h1>
-          <p class="text-gray-400 mt-4">
-            I excel at crafting elegant digital experiences and am proficient in various programming languages and technologies.
-          </p>
-          <div class="mt-8 flex items-center space-x-4">
-            <button class="bg-#00bfa6-400 text-black px-6 py-3 rounded-full" download-btn>Download CV</button>
+            <h2 class="text-gray-500 text-xl">Software Developer</h2>
+            <h1 class="text-6xl font-extrabold">
+              Hello, I am <br />
+              <span class="text-green-400">Arun Rathore</span>
+            </h1>
+            <p class="text-gray-400 mt-4">
+              I excel at crafting elegant digital experiences and am proficient in various programming languages and technologies.
+            </p>
+            <div class="mt-8 flex items-center space-x-4">
+              <a href="/Resume.pdf" download class="bg-green-400 text-black px-6 py-3 rounded-full">
+                Download CV
+              </a>
+            </div>
           </div>
-        </div>
-        
-        <!-- Image Section -->
-        <!-- Image Section -->
-        <div class="relative flex justify-center items-center md:w-2/5">
-          <!-- Main Image -->
-          <div class="image-container">
-            <!-- Main Image -->
-            <img
-            src="/ar.jpg"
-            alt="Profile"
-            class="w-65 h-65 rounded object-cover z-10"
-            />
-            <!-- Circular Moving Lines -->
-            
-            <div class="circular-anim"></div>
+          <!-- Image Section -->
+          <div class="relative flex justify-center items-center md:w-1/2">
+            <img src="/ar.jpg" alt="Profile" class="w-64 h-64 rounded-full object-cover z-10" />
+            <div class="absolute inset-0 flex justify-center items-center">
+              <div v-for="n in 12" :key="n" :style="{ transform: `rotate(${n * 30}deg)` }" class="absolute">
+                <div class="w-4 h-4 bg-green-400 rounded-full animate-spin-vertical"></div>
+              </div>
+            </div>
           </div>
-        </div>
-        
-      </section>
-      <div class="container mx-auto py-32 px-5">
+        </section>
       
-      <!-- Experience Section -->
-      <section class="text-center py-5">
-        <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 md:spacs-x-10 text-2xl">
-          <div>
-            <p class="font-bold text-white">0</p>
-            <p class="text-gray-500">Years of experience</p>
+      <div class="container mx-auto py-32 px-5">
+        <!-- Experience Section -->
+        <section class="text-center py-5">
+          <div class="relative flex flex-wrap justify-center space-x-4 sm:space-x-6 md:space-x-10 text-2xl">
+            <div class="w-full sm:w-auto">
+              <p class="font-bold text-white">0</p>
+              <p class="text-gray-500">Years of experience</p>
+            </div>
+            <div class="w-full sm:w-auto">
+              <p class="font-bold text-white">15</p>
+              <p class="text-gray-500">Projects completed</p>
+            </div>
+            <div class="w-full sm:w-auto">
+              <p class="font-bold text-white">6</p>
+              <p class="text-gray-500">Technologies mastered</p>
+            </div>
+            <div class="w-full sm:w-auto">
+              <p class="font-bold text-white">100</p>
+              <p class="text-gray-500">Code commits</p>
+            </div>
           </div>
-          <div>
-            <p class="font-bold text-white">15</p>
-            <p class="text-gray-500">Projects completed</p>
-          </div>
-          <div>
-            <p class="font-bold text-white">6</p>
-            <p class="text-gray-500">Technologies mastered</p>
-          </div>
-          <div>
-            <p class="font-bold text-white">100</p>
-            <p class="text-gray-500">Code commits</p>
-          </div>
-        </div>
-      </section>
-    </div><hr />
+        </section>
+      
+    </div><hr /><br />
       <!-- Add your content here -->
        <section id="about">
          <h2>About Me</h2>
@@ -115,8 +121,8 @@
           <section class="experience-section">
             <h2 class="h2">Experience & Education</h2>
             <ul>
-              <li class="lt">M.Tech in Computer Science (2023 - Present) - XYZ University</li>
-              <li class="lt">B.Tech in Computer Science (2019 - 2023) - ABC College</li>
+              <li class="lt">M.Tech in Computer Science (2023 - Present) - Sri Aurobindo Institute Of Technology, Indore</li>
+              <li class="lt">B.Tech in Computer Science (2019 - 2023) - Technocrats Institute Of Technology, Bhopal</li>
               <li class="lt">TCS National Qualifier Test 2024 - Score: 63%</li>
             </ul>
           </section>
@@ -157,47 +163,47 @@
           <br /><hr /><br />
           <!--mywork-->
           <section id="work">
-             <section class="portfolio-gallery">
-               <h3 style="text-align: center; font-weight: bold; font-size: large;">My Work</h3>
-               <div class="gallery">
-                 <!-- Project 1: AI ChatBot -->
-                 <div class="gallery-item">
-                   <img src="/ai.png" alt="AI ChatBot" />
-                   <h4>AI ChatBot</h4>
-                   <p>This AI chatbot is built using Python, Django, and JavaScript. It automates responses based on user queries, making interaction seamless.</p>
-                   <ul>
-                     <li>Technologies: Python, Django, SQLite, HTML, CSS, JavaScript</li>
-                     <li>Created by: Arun Rathore</li>
-                   </ul>
-                   <a href="https://github.com/Arun-rathore08/ChatBot" target="_blank">View on GitHub</a>
-                 </div>
-    
-                 <!-- Project 2: ToDo List App -->
-                 <div class="gallery-item">
-                   <img src="/todo.png" alt="ToDo List App" />
-                   <h4>ToDo List App</h4>
-                   <p>A simple and effective ToDo app to manage tasks, built with Python, Django, and Bootstrap for an intuitive UI and smooth functionality.</p>
-                   <ul>
-                     <li>Technologies: Python, Django, SQLite, HTML, CSS, Bootstrap</li>
-                     <li>Created by: Arun Rathore</li>
-                   </ul>
-                   <a href="https://github.com/Arun-rathore08/TODO-Application" target="_blank">View on GitHub</a>
-                 </div>
-                 
-                 <!-- Project 3: Hotel Management System -->
-                 <div class="gallery-item">
-                   <img src="/hotel.png" alt="Hotel Management System" />
-                   <h4>Hotel Management System</h4>
-                   <p>A web-based solution for managing hotel operations, from bookings to customer handling. Built with PHP and MySQL.</p>
-                   <ul>
-                     <li>Technologies: HTML, CSS, JavaScript, PHP, MySQL</li>
-                     <li>Team: Arun Rathore, Roshan Nagose, Lakhan Singh</li>
-                     <li>My Role: Database creation and management</li>
-                   </ul>
-                   <a href="https://github.com/Arun-rathore08" target="_blank">View on GitHub</a>
-                 </div>
-               </div>
-             </section>
+            <section class="portfolio-gallery flex flex-wrap justify-center gap-6">
+              <h3 class="w-full text-center font-bold text-lg md:text-xl lg:text-2xl mb-6">My Work</h3>
+              <div class="gallery grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1: AI ChatBot -->
+                <div class="gallery-item p-4 bg-gray-800 rounded-lg shadow-lg">
+                  <img src="/ai.png" alt="AI ChatBot" class="w-full h-40 object-cover rounded-t-lg" />
+                  <h4 class="mt-4 text-xl font-bold text-green-400">AI ChatBot</h4>
+                  <p class=" mt-2 text-gray-300">This AI chatbot is built using Python, Django, and JavaScript. It automates responses based on user queries, making interaction seamless.</p>
+                  <ul class="mt-2 text-gray-400">
+                    <li>Technologies: Python, Django, SQLite, HTML, CSS, JavaScript</li>
+                    <li>Created by: Arun Rathore</li>
+                  </ul>
+                  <a href="https://github.com/Arun-rathore08/ChatBot" target="_blank" class="block mt-4 text-blue-500 hover:text-blue-400">View on GitHub</a>
+                </div>
+
+                <!-- Project 2: ToDo List App -->
+                <div class="gallery-item p-4 bg-gray-800 rounded-lg shadow-lg">
+                  <img src="/todo.png" alt="ToDo List App" class="w-full h-40 object-cover rounded-t-lg" />
+                  <h4 class="mt-4 text-xl font-bold text-green-400">ToDo List App</h4>
+                  <p class="mt-2 text-gray-300">A simple and effective ToDo app to manage tasks, built with Python, Django, and Bootstrap for an intuitive UI and smooth functionality.</p>
+                  <ul class="mt-2 text-gray-400">
+                    <li>Technologies: Python, Django, SQLite, HTML, CSS, Bootstrap</li>
+                    <li>Created by: Arun Rathore</li>
+                  </ul>
+                  <a href="https://github.com/Arun-rathore08/TODO-Application" target="_blank" class="block mt-4 text-blue-500 hover:text-blue-400">View on GitHub</a>
+                </div>
+
+                <!-- Project 3: Hotel Management System -->
+                <div class="gallery-item p-4 bg-gray-800 rounded-lg shadow-lg">
+                  <img src="/hotel.png" alt="Hotel Management System" class="w-full h-40 object-cover rounded-t-lg" />
+                  <h4 class="mt-4 text-xl font-bold text-green-400">Hotel Management System</h4>
+                  <p class="mt-2 text-gray-300">A web-based solution for managing hotel operations, from bookings to customer handling. Built with PHP and MySQL.</p>
+                  <ul class="mt-2 text-gray-400">
+                    <li>Technologies: HTML, CSS, JavaScript, PHP, MySQL</li>
+                    <li>Team: Arun Rathore, Roshan Nagose, Lakhan Singh</li>
+                    <li>My Role: Database creation and management</li>
+                  </ul>
+                  <a href="https://github.com/Arun-rathore08" target="_blank" class="block mt-4 text-blue-500 hover:text-blue-400">View on GitHub</a>
+                </div>
+              </div>
+            </section>
           </section>
           <br /><hr />
           <section id="service">
@@ -346,46 +352,47 @@
        <br /><hr /><br />
        <!--contact-->
        <section id="contact">
-         <div class="contact-container">
-           <h1>Contact Me</h1>
-           <form @submit.prevent="submitForm" class="contact-form">
-             <div class="form-group">
-              <label for="name">Name:</label>
-              <input type="text" v-model="formData.name" required placeholder="Your Name" />
+        <div class="contact-container mx-auto max-w-2xl p-6 bg-gray-800 rounded-lg shadow-lg">
+          <h1 class="text-2xl font-bold text-center text-teal-400 mb-6">Contact Me</h1>
+          <form @submit.prevent="submitForm" class="contact-form space-y-4">
+            <div class="form-group">
+              <label for="name" class="text-gray-300">Name:</label>
+              <input type="text" v-model="formData.name" required placeholder="Your Name" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"/>
             </div>
             <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="email" v-model="formData.email" required placeholder="Your Email" />
+              <label for="email" class="text-gray-300">Email:</label>
+              <input type="email" v-model="formData.email" required placeholder="Your Email" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"/>
             </div>
             <div class="form-group">
-              <label for="contact">Contact Number:</label>
-              <input type="text" v-model="formData.contact" required placeholder="Your Contact Number" />
+              <label for="contact" class="text-gray-300">Contact Number:</label>
+              <input type="text" v-model="formData.contact" required placeholder="Your Contact Number" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"/>
             </div>
             <div class="form-group">
-              <label for="message">Reason for Contact:</label>
-              <textarea v-model="formData.message" required placeholder="Why do you want to connect?"></textarea>
+              <label for="message" class="text-gray-300">Reason for Contact:</label>
+              <textarea v-model="formData.message" required placeholder="Why do you want to connect?" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"></textarea>
             </div>
-            <button type="submit">Submit</button>
-            <p class="para" v-if="formSubmitted">Thank you! We will get back to you shortly.</p>
+            <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-semibold p-3 rounded-lg transition duration-300 ease-in-out">Submit</button>
+            <p class="para text-teal-400 text-center mt-4" v-if="formSubmitted">Thank you! We will get back to you shortly.</p>
           </form>
         </div>
 
         <!-- Social links -->
-        <div class="social-links">
+        <div class="social-links flex justify-center space-x-8 mt-8">
           <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">
-            <img src="/linkedin.png" alt="LinkedIn" />
+            <img src="/linkedin.png" alt="LinkedIn" class="w-10 h-10">
           </a>
           <a href="https://github.com/arun-rathore08" target="_blank">
-            <img src="/github.png" alt="GitHub" />
+            <img src="/github.png" alt="GitHub" class="w-10 h-10">
           </a>
           <a href="mailto:15arunrathore@gmail.com">
-            <img src="/gmail.png" alt="Email" />
+            <img src="/gmail.png" alt="Email" class="w-10 h-10">
           </a>
         </div>
       </section>
+
     </div>
   </div>
-    <footer>
+  <footer class="footer flex justify-center">
       <p>© 2024 Arun Rathore. All rights reserved.</p>
     </footer>
   </div>
@@ -413,17 +420,20 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
+    toggleSidebar() {
+      this.sidebarVisible = !this.sidebarVisible;
+    },
     async submitForm() {
       try {
         const response = await this.$axios.post('http://localhost:8000/api/contact/submit/', this.formData);
         this.formSubmitted = true;
-        console.log("Form Submitted: ", response.data)
-      } catch(error){
+        console.log("Form Submitted: ", response.data);
+      } catch (error) {
         console.error("There was an error submitting the form:", error);
       }
-      
     },
     handleScroll() {
+      this.navVisible = window.scrollY <= 100;
       const scrollPosition = window.scrollY;
       if (scrollPosition > 100) {
         this.sidebarVisible = true;
@@ -431,8 +441,7 @@ export default {
         this.sidebarVisible = false;
       }
     },
-  },
-  startCounting() {
+    startCounting() {
       const targetExperience = 0;
       const targetProjects = 15;
       const targetTechnologies = 6;
@@ -455,8 +464,9 @@ export default {
         }
       }, stepTime);
     },
-  
+  },
 };
 </script>
+
 
 
