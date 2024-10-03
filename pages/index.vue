@@ -404,15 +404,18 @@ export default {
       commitsCount: 0,
       isDesktop: false, // To check if it's desktop
       isMobile: false,  // To check if it's mobile
+      navVisible: true, // To control navbar visibility on desktop
     };
   },
   mounted() {
     this.handleResize();
+    window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.checkScreenSize);
     window.addEventListener('resize', this.handleResize);
     this.startCounting(); // Start counter when the page loads
   },
   beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.checkScreenSize);
     window.removeEventListener('resize', this.handleResize);
   },
@@ -430,13 +433,29 @@ export default {
       });
       this.navOpen = false; // Close the navbar on mobile after clicking a link
     },
-    async submitForm() {
-      try {
-        const response = await this.$axios.post('http://localhost:8000/api/contact/submit/', this.formData);
-        this.formSubmitted = true;
-        console.log('Form Submitted: ', response.data);
-      } catch (error) {
-        console.error('There was an error submitting the form:', error);
+    handleScroll() {
+      const scrollPosition = window.scrollY;
+      const sections = ['home', 'about', 'work', 'service', 'contact'];
+      let foundSection = '';
+
+      // Navbar visibility for desktop screens
+      if (this.isDesktop) {
+        this.navVisible = scrollPosition <= 100;
+      }
+
+      // Check which section is currently being viewed
+      sections.forEach((section) => {
+        const sectionElement = this.$refs[section];
+        if (sectionElement) {
+          const rect = sectionElement.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+            foundSection = section;
+          }
+        }
+      });
+
+      if (foundSection) {
+        this.currentSection = foundSection;
       }
     },
     handleResize() {
@@ -474,4 +493,3 @@ export default {
   },
 };
 </script>
-
