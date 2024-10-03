@@ -1,59 +1,42 @@
 <template>
-  <div ref="home" class="min-h-screen bg-black text-white font-sans" id="home">
-    <div class="container mx-auto py-10 px-5 md:px-20">
+  <div class="min-h-screen bg-black text-white font-sans">
+    <div class="container mx-auto py-5 px-5 md:px-10">
       <!-- Navbar -->
-      <nav :class="['fixed top-0 left-0 w-full bg-black text-white py-5 px-10 z-20 transition-all duration-300 flex justify-between items-center', navVisible || !isDesktop ? 'opacity-100' : 'opacity-0 pointer-events-none']">
-        <nuxt-link to="/">
-          <img src="/logo.png" style="width: 75px;" alt="Logo">
-        </nuxt-link>
-        
-        <!-- Sidebar Toggle Button for Mobile (Always visible) -->
-        <button class="text-white md:hidden" @click="toggleSidebar">
-          <!-- Toggle Menu Icon -->
-          <svg v-if="!sidebarVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-          <!-- Close Icon -->
-          <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        
-        <!-- Navbar Links for Desktop -->
-        <ul class="hidden md:flex justify-end space-x-8 pt-2 text-lg">
-          <li><NuxtLink to="/" class="hover:text-blue-400" @click="scrollToTop">Home</NuxtLink></li>
-          <li><NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink></li>
-          <li><NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink></li>
-          <li><NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink></li>
-          <li><NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink></li>
-        </ul>
-      </nav>
+<nav :class="['fixed top-0 left-0 w-full bg-transparent text-white py-2 px-10 z-15 transition-all duration-300 flex justify-between items-center', navVisible || !isDesktop ? 'opacity-100' : 'opacity-0 pointer-events-none']">
+  <nuxt-link to="/">
+    <img src="/logo.png" class="p-4 w-30 h-20" alt="Logo">
+  </nuxt-link>
+  
+  <!-- Navbar Toggle Button for Mobile (Always visible) -->
+  <button class="text-white md:hidden" @click="toggleNavbar">
+    <!-- Toggle Menu Icon -->
+    <svg v-if="!navOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+    </svg>
+    <!-- Close Icon -->
+    <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Navbar Links for Desktop and Collapsible Menu for Mobile -->
+  <ul :class="['md:flex justify-end space-x-6 pt-1 text-lg', navOpen ? 'flex flex-col items-center space-y-4 absolute top-16 left-0 w-full bg-black' : 'hidden md:flex']">
+    <li><NuxtLink to="/" class="hover:text-blue-400" @click="scrollToTop">Home</NuxtLink></li>
+    <li><NuxtLink to="/#about" class="hover:text-blue-400">About</NuxtLink></li>
+    <li><NuxtLink to="/#work" class="hover:text-blue-400">Work</NuxtLink></li>
+    <li><NuxtLink to="/#service" class="hover:text-blue-400">Services</NuxtLink></li>
+    <li><NuxtLink to="/#contact" class="hover:text-blue-400">Contact</NuxtLink></li>
+  </ul>
+</nav>
+
 
       <!-- Sidebar for Mobile -->
-      <div :class="['fixed top-20 left-0 h-full w-30 bg-black z-30 transition-transform duration-300', sidebarVisible ? 'translate-x-0' : '-translate-x-full']">
-        <nav class="sidebar flex flex-col items-center space-y-6 mt-10 text-lg text-white">
-            <li :class="{ active: currentSection === 'home' }">
-              <NuxtLink to="/#home" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('home')">Home</NuxtLink>
-            </li>
-            <li :class="{ active: currentSection === 'about' }">
-              <NuxtLink to="/#about" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('about')">About</NuxtLink>
-            </li>
-            <li :class="{ active: currentSection === 'work' }">
-              <NuxtLink to="/#work" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('work')">Work</NuxtLink>
-            </li>
-            <li :class="{ active: currentSection === 'service' }">
-              <NuxtLink to="/#service" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('service')">Services</NuxtLink>
-            </li>
-            <li :class="{ active: currentSection === 'contact' }">
-              <NuxtLink to="/#contact" class="hover:text-blue-400" @click="toggleSidebar, scrollToSection('contact')">Contact</NuxtLink>
-            </li>
-        </nav>
-      </div>
+      
 
       <!-- Content Section -->
-      <div class="cont mt-10 ml-20">
+      <div class="cont mt-10 ml-18">
         <!-- Hero Section -->
-        <section class="flex flex-col md:flex-row items-center justify-between py-20">
+        <section ref="home" class="flex flex-col md:flex-row items-center justify-between py-20" id="home">
           <!-- Text Section -->
           <div class="md:w-1/2">
             <h2 class="text-gray-500 text-xl">Software Developer</h2>
@@ -162,6 +145,8 @@
           </ul>
         </section>
 
+        <!-- Social Links Section -->
+
         <!-- Vision Section -->
         <section class="vision-section" style="margin-bottom: 3rem;">
           <h2 class="h2">My Vision</h2>
@@ -169,12 +154,9 @@
             I believe in helping others grow while learning together. I aim to contribute meaningfully through technology, problem-solving, and innovation.
           </p>
         </section>
-
-        
-        <!-- Social Links Section -->
         <section class="social-section">
           <h2 class="h2">Connect with Me</h2>
-          <div class="social-links" px-4>
+          <div class="social-links px-4">
             <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">LinkedIn</a>
             <a href="https://github.com/Arun-rathore08" target="_blank">GitHub</a>
           </div>
@@ -379,20 +361,20 @@
          <!--contact-->
          <section ref="contact" id="contact">
           <div class="contact-container mx-auto max-w-2xl p-6 bg-gray-800 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold text-center text-teal-400 mb-6">Contact Me</h1>     
-            <div class="social-links flex justify-center space-x-8 mt-8">
-              <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">
-                <img src="/linkedin.png" alt="LinkedIn" class="w-10 h-10">
-              </a>
-              <a href="https://github.com/arun-rathore08" target="_blank">
-                <img src="/github.png" alt="GitHub" class="w-10 h-10">
-              </a>
-              <a href="mailto:15arunrathore@gmail.com">
-                <img src="/gmail.png" alt="Email" class="w-10 h-10">
-              </a>
-            </div>
-          </div>
+            <h1 class="text-2xl font-bold text-center text-teal-400 mb-6">Contact Me</h1>            
           <!-- Social links -->
+          <div class="social-links flex justify-center space-x-8 mt-8">
+            <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">
+              <img src="/linkedin.png" alt="LinkedIn" class="w-10 h-10">
+            </a>
+            <a href="https://github.com/arun-rathore08" target="_blank">
+              <img src="/github.png" alt="GitHub" class="w-10 h-10">
+            </a>
+            <a href="mailto:15arunrathore@gmail.com">
+              <img src="/gmail.png" alt="Email" class="w-10 h-10">
+            </a>
+          </div>
+          </div>
         </section>
       </div>
     </div>
@@ -414,73 +396,63 @@ export default {
         message: '',
       },
       formSubmitted: false,
-      sidebarVisible: false,
+      navOpen: false, // For toggling the navbar content on mobile
       currentSection: 'home',
       experienceCount: 0,
       projectsCount: 0,
       technologiesCount: 0,
       commitsCount: 0,
-      isDesktop: false,
-      navVisible: true, // To control navbar visibility
+      isDesktop: false, // To check if it's desktop
+      isMobile: false,  // To check if it's mobile
+      navVisible: true, // To control navbar visibility on desktop
     };
   },
   mounted() {
     this.handleResize();
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.checkScreenSize);
-    window.addEventListener('resize', this.handleResize); 
-    this.startCounting(); // Trigger counter when the page is loaded
+    window.addEventListener('resize', this.handleResize);
+    this.startCounting(); // Start counter when the page loads
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleScroll);
-    window.removeEventListener('resize', this.handleResize); 
+    window.removeEventListener('resize', this.checkScreenSize);
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     checkScreenSize() {
       this.isMobile = window.innerWidth < 768;
     },
-    toggleSidebar() {
-      this.sidebarVisible = !this.sidebarVisible;
+    toggleNavbar() {
+      this.navOpen = !this.navOpen; // Toggle mobile navbar visibility
     },
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth',
+        behavior: 'smooth', // Smooth scrolling
       });
+      this.navOpen = false; // Close the navbar on mobile after clicking a link
     },
     async submitForm() {
       try {
         const response = await this.$axios.post('http://localhost:8000/api/contact/submit/', this.formData);
         this.formSubmitted = true;
-        console.log("Form Submitted: ", response.data);
+        console.log('Form Submitted: ', response.data);
       } catch (error) {
-        console.error("There was an error submitting the form:", error);
+        console.error('There was an error submitting the form:', error);
       }
     },
     handleScroll() {
-      this.navVisible = window.scrollY <= 100;
+      const scrollPosition = window.scrollY;
       const sections = ['home', 'about', 'work', 'service', 'contact'];
       let foundSection = '';
-      const scrollPosition =  window.scrollY;
-      
-      //handle navbar visibility
-      this.navVisible = scrollPosition <= 100;
-      if(this.isDesktop){
-        this.navVisible = window.scrollY <= 100;
+
+      // Navbar visibility for desktop screens
+      if (this.isDesktop) {
+        this.navVisible = scrollPosition <= 100;
       }
-      //show the sidebar based on scroll only when if it's not mobile
-      if(!this.isMobile){
-        if(scrollPosition>100){
-          if(window.innerWidth >= 768){
-            this.sidebarVisible = true;
-          }
-        } else{
-          if (window.innerWidth >= 768){
-            this.sidebarVisible = false;
-          }
-        }
-      }
+
+      // Check which section is currently being viewed
       sections.forEach((section) => {
         const sectionElement = this.$refs[section];
         if (sectionElement) {
@@ -490,12 +462,14 @@ export default {
           }
         }
       });
+
       if (foundSection) {
         this.currentSection = foundSection;
       }
     },
-    handleResize(){
+    handleResize() {
       this.isDesktop = window.innerWidth >= 768;
+      this.isMobile = window.innerWidth < 768;
     },
     scrollToSection(section) {
       const sectionElement = this.$refs[section];
@@ -504,6 +478,7 @@ export default {
           top: sectionElement.offsetTop - 80, // Adjust for navbar height
           behavior: 'smooth',
         });
+        this.navOpen = false; // Close navbar after selecting a link in mobile
       }
     },
     startCounting() {
