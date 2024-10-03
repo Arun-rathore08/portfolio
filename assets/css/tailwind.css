@@ -5,6 +5,15 @@
 html {
   scroll-behavior: smooth;
 }
+nav{
+  transition: opacity 0.3s ease-in-out;
+}
+.cont {
+  transition: margin-left 0.3s ease;
+}
+.sidebar {
+  transition: width 0.3s ease, transform 0.3s ease;
+}
 
 .image-container {
     position: relative;
@@ -15,17 +24,19 @@ html {
 }
 
 .curve {
-  stroke: #00bfa6;
-  stroke-width: 4;
-  fill: none;
-  stroke-dasharray: 15;
-  stroke-dashoffset: 0;
+  stroke: #00bfa6; /* Color of the dashed line */
+  stroke-width: 4; /* Thickness of the line */
+  fill: none; /* Keep the fill empty to just show the lines */
+  stroke-dasharray: 15; /* Length of the dashes */
+  stroke-dashoffset: 0; /* Start without offset */
 }
 
+/* Animate the orbits */
 .orbit {
-  animation: orbit 10s linear infinite;
+  animation: orbit 10s linear infinite; /* Rotate animation */
 }
 
+/* Keyframes for orbiting effect */
 @keyframes orbit {
   0% {
     transform: rotate(0deg);
@@ -35,163 +46,284 @@ html {
   }
 }
 
-.outer-orbit, .inner-orbit {
-  transform-origin: 200px 200px;
+/* Position lines in a circle */
+.outer-orbit {
+  transform-origin: 200px 200px; /* Center of the circle */
 }
 
-.introduction {
-  text-align: center;
-  margin: 20px;
+.inner-orbit {
+  transform-origin: 200px 200px; /* Center of the circle */
 }
-
-.gallery {
-  display: grid;
-  justify-content: center;
-  padding: 20px;
-  gap: 20px;
-}
-
-.gallery-item {
-  width: auto;
-  height: auto;
-  padding: 20px;
-  background-color: #4c5858;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.gallery-item img {
-  width: auto;
-  height: 350px;
-  border-radius: 10px;
-}
-
-.gallery-item h4 {
-  color: #0be6c8;
-  font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.5rem;
-}
-
-.gallery-item ul {
-  color: white;
-  list-style-type: none;
-  padding: 0;
-  margin: 10px 0;
-}
-
-.gallery-item a {
-  display: inline-block;
-  margin-top: 10px;
-  background-color: #00bfa6;
-  color: white;
-  padding: 10px;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-#about .container {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.resume-section .download-btn {
-  display: block;
-  text-align: center;
-  background-color: #00bfa6;
-  color: Black;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-decoration: none;
-}
-
-.resume-section .download-btn:hover {
-  background-color: #3bfcec;
-}
-
-.social-links a {
-  margin-right: 15px;
-  color: white;
-  text-decoration: none;
-}
-
-#about h2 {
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-}
-
-.services-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-#service h1 {
-  text-align: center;
-  margin: 2rem;
-  color: white;
-  font-weight: bold;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.service-item {
-  background-color: #4c5858;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.service-item img {
-  width: 100%;
-  height: 250px;
-  border-radius: 10px;
-}
-
-.tech-container {
-  max-width: 1200px;
-  margin: 2rem auto;
-}
-
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-footer {
-  background-color: #333;
-  color: rgb(44, 243, 210);
-  text-align: center;
-  padding: 1rem;
-  margin-top: 1rem;
-}
-
-footer p {
-  margin: auto;
-}
-
-@media screen and (max-width: 700px) {
-  .main-content {
-    margin-left: 0;
+  .introduction {
+    text-align: center;
+    margin: 20px;
   }
-}
-
-@media (max-width: 768px) {
+  
   .gallery {
-    grid-template-columns: 1fr;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .gallery-item {
+    width: auto;
+    height: auto;
+    padding: 20px;
+    background-color: #4c5858;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .gallery-item img {
+    width: auto;
+    height: 350px;
+    object-fit: wrap;
+    border-radius: 10px;
+  }
+  
+  .gallery-item h4 {
+    color: #0be6c8;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 1.5rem;
+  }
+  
+  .gallery-item ul {
+    color: white;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .gallery-item li {
+    margin: 5px 0;
+  }
+  .gallery-item p{
+    color: white;
+  }
+  
+  .gallery-item a {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #00bfa6;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  #about .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .p {
+    margin: 1rem;
+  }
+  
+  /* Download Button */
+  .resume-section .download-btn {
+    display: block;
+    text-align: center;
+    background-color: #00bfa6;
+    color: Black;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-decoration: none;
+  }
+  
+  .resume-section .download-btn:hover {
+    background-color: #3bfcec;
+  }
+  
+  /* Social Links */
+  .social-links a {
+    margin-right: 15px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .social-links a:hover {
+    color: #00bfa6;
+  }
+  
+  /* Section Headers */
+  #about h2 {
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px;
+  }
+  .h2{
+    color: #0be6c8;
+    margin: 1rem;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  
+  #about ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .lt {
+    text-align: center;
+    background-color:#4c5858;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
   }
 
-  .tech-grid, .services-grid {
-    grid-template-columns: 1fr;
+  
+  .services-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    #service h1 {
+      text-align: center;
+      margin: 2rem;
+      color: white;
+      font-weight: bold;
+      font-size: large;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    .service-item {
+      background-color: #4c5858;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .service-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    
+    .service-item h3 {
+      color: #029e89;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .service-item p {
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .service-item ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    /* Tech Tools Section */
+    .tech-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+    
+    .tech-container h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: white;
+      font-weight: bolder;
+    }
+    
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    .tech-item {
+      background-color: #4c5858;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+  
+    .tech-item h4{
+      font-weight: bold;
+      color: #0adbbf;
+    }
+  
+    .img{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      margin: 1rem;
+    }
+    
+    .tech-item img {
+      width: 50px;
+      height: 50px;
+      margin: 0.5rem;
+    }
+  
+    .contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #4c5858;
+    border-radius: 8px;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
   }
-}
+
+  
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .main-content {
+      margin-left: 0;
+    }
+  }
+  @media (max-width: 768px) {
+    .gallery {
+      grid-template-columns: 1fr; /* Stack gallery items on top of each other on mobile */
+    }
+  
+    .tech-grid {
+      grid-template-columns: 1fr; /* Stack tech tools on top of each other on mobile */
+    }
+  
+    .services-grid {
+      grid-template-columns: 1fr; /* Stack services on top of each other on mobile */
+    }
+  }
+  
+  footer {
+    background-color: #333;
+    color: rgb(44, 243, 210);
+    text-align: center;
+    padding: 1rem ;
+    margin-top: 1rem;
+  }
+  
+  footer p {
+    margin: auto;
+  }
+
+
+
