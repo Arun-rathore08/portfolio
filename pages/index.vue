@@ -162,21 +162,22 @@
           </ul>
         </section>
 
-        <!-- Social Links Section -->
-        <section class="social-section">
-          <h2 class="h2">Connect with Me</h2>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">LinkedIn</a>
-            <a href="https://github.com/Arun-rathore08" target="_blank">GitHub</a>
-          </div>
-        </section>
-
         <!-- Vision Section -->
         <section class="vision-section" style="margin-bottom: 3rem;">
           <h2 class="h2">My Vision</h2>
           <p class="p">
             I believe in helping others grow while learning together. I aim to contribute meaningfully through technology, problem-solving, and innovation.
           </p>
+        </section>
+
+        
+        <!-- Social Links Section -->
+        <section class="social-section">
+          <h2 class="h2">Connect with Me</h2>
+          <div class="social-links" px-4>
+            <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">LinkedIn</a>
+            <a href="https://github.com/Arun-rathore08" target="_blank">GitHub</a>
+          </div>
         </section>
 
         <br /><hr /><br />
@@ -378,40 +379,20 @@
          <!--contact-->
          <section ref="contact" id="contact">
           <div class="contact-container mx-auto max-w-2xl p-6 bg-gray-800 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold text-center text-teal-400 mb-6">Contact Me</h1>
-            <form @submit.prevent="submitForm" class="contact-form space-y-4">
-              <div class="form-group">
-                <label for="name" class="text-gray-300">Name:</label>
-                <input type="text" v-model="formData.name" required placeholder="Your Name" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"/>
-              </div>
-              <div class="form-group">
-                <label for="email" class="text-gray-300">Email:</label>
-                <input type="email" v-model="formData.email" required placeholder="Your Email" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"/>
-              </div>
-              <div class="form-group">
-                <label for="contact" class="text-gray-300">Contact Number:</label>
-                <input type="text" v-model="formData.contact" required placeholder="Your Contact Number" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"/>
-              </div>
-              <div class="form-group">
-                <label for="message" class="text-gray-300">Reason for Contact:</label>
-                <textarea v-model="formData.message" required placeholder="Why do you want to connect?" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white"></textarea>
-              </div>
-              <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-semibold p-3 rounded-lg transition duration-300 ease-in-out">Submit</button>
-              <p class="para text-teal-400 text-center mt-4" v-if="formSubmitted">Thank you! We will get back to you shortly.</p>
-            </form>
+            <h1 class="text-2xl font-bold text-center text-teal-400 mb-6">Contact Me</h1>     
+            <div class="social-links flex justify-center space-x-8 mt-8">
+              <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">
+                <img src="/linkedin.png" alt="LinkedIn" class="w-10 h-10">
+              </a>
+              <a href="https://github.com/arun-rathore08" target="_blank">
+                <img src="/github.png" alt="GitHub" class="w-10 h-10">
+              </a>
+              <a href="mailto:15arunrathore@gmail.com">
+                <img src="/gmail.png" alt="Email" class="w-10 h-10">
+              </a>
+            </div>
           </div>
           <!-- Social links -->
-          <div class="social-links flex justify-center space-x-8 mt-8">
-            <a href="https://www.linkedin.com/in/arun-rathore-1b9228223" target="_blank">
-              <img src="/linkedin.png" alt="LinkedIn" class="w-10 h-10">
-            </a>
-            <a href="https://github.com/arun-rathore08" target="_blank">
-              <img src="/github.png" alt="GitHub" class="w-10 h-10">
-            </a>
-            <a href="mailto:15arunrathore@gmail.com">
-              <img src="/gmail.png" alt="Email" class="w-10 h-10">
-            </a>
-          </div>
         </section>
       </div>
     </div>
