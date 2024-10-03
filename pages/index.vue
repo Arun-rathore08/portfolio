@@ -74,7 +74,7 @@
 
         </section>
 
-        <div class="container mx-auto py-32 px-5">
+        <div class="container mx-auto py-5 px-5">
           <!-- Experience Section -->
           <section class="text-center py-1">
             <div class="relative flex flex-wrap justify-center space-x-4 sm:space-x-6 md:space-x-10 text-2xl">
