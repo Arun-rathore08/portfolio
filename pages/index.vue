@@ -56,7 +56,7 @@
           <!-- Image Section -->
           
           <div class="relative flex justify-center items-center md:w-1/2 mt-8 md:mt-0">
-            <img src="/ar.jpg" alt="Profile" class="w-64 h-64 rounded-full object-cover z-10" />
+            <img src="/ar.jpeg" alt="Profile" class="w-64 h-64 rounded-full object-cover z-10" />
             <svg width="400" height="400" class="absolute">
               <!-- Outer Orbit (Dashed Line) -->
               <path
